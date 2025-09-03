@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class Agenda {
@@ -94,7 +95,7 @@ public class Agenda {
         for (Contacto c : contactos) {
             if (c.getNombre().equalsIgnoreCase(nombre) &&
                     c.getApellido().equalsIgnoreCase(apellido)) {
-                c.setTelefono(nuevoTelefono);
+//                c.setTelefono(nuevoTelefono);
                 return true;
             }
         }
