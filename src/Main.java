@@ -28,7 +28,7 @@ public class Main {
         agenda.eliminarContacto(c2);
 
         // Ver espacios libres
-        System.out.println("Espacios libres: " + agenda.espaciosLibres());
+//        System.out.println("Espacios libres: " + agenda.espaciosLibres());
 
         // Agenda llena?
         System.out.println("¿Agenda llena?: " + agenda.agendaLlena());
