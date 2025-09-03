@@ -2,58 +2,51 @@ package logica;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Agenda {
-
-    /// atributos
-    private ArrayList<Contacto> contactos;
+    private List<Contacto> contactos;
     private int maxContactos;
 
-
-    /// constructores
-    public Agenda(int maxContactos){
-        contactos = new ArrayList<>();
+    // Constructor con tamaño personalizado
+    public Agenda(int maxContactos) {
+        this.contactos = new ArrayList<>();
         this.maxContactos = maxContactos;
     }
 
-
-    public Agenda(){
-        contactos = new ArrayList<>();
-        this.maxContactos = 10;
+    // Constructor con tamaño por defecto (10)
+    public Agenda() {
+        this(10);
     }
 
-    /// metodos
-    public boolean agendaLlena(){
+    // Verifica si la agenda está llena
+    public boolean agendaLlena() {
         return contactos.size() >= maxContactos;
     }
 
-
-    public int espacioLibre(){
+    // Devuelve los espacios libres
+    public int espacioLibre() {
         return maxContactos - contactos.size();
     }
 
-    public boolean existeContacto(Contacto c){
-        for (Contacto contacto : contactos){
-            if (contacto.equals(c)){
-                return true;
-            }
-        }
-        return false;
+    // Verifica si un contacto existe
+    public boolean existeContacto(Contacto c) {
+        return contactos.contains(c); // gracias al equals de Contacto
     }
 
-    public String añadirContacto(Contacto c){
-        if (agendaLlena()){
-            return "No se puede añadir. La agenda está llena";
+    // Añadir contacto
+    public String añadirContacto(Contacto c) {
+        if (agendaLlena()) {
+            return "No se puede añadir. La agenda está llena.";
         }
-        if (existeContacto(c)){
-            return "No se puede añadir. El contacto ya existe";
-
+        if (existeContacto(c)) {
+            return "No se puede añadir. El contacto ya existe.";
         }
         contactos.add(c);
-        return "el contacto fue añadido";
+        return "El contacto fue añadido.";
     }
 
-
+    // Listar contactos
     public List<String> listarContactos() {
         List<String> lista = new ArrayList<>();
 
@@ -62,19 +55,19 @@ public class Agenda {
             return lista;
         }
 
-        contactos.sort((c1, c2) -> {
-            int compNombre = c1.getNombre().compareToIgnoreCase(c2.getNombre());
-            if (compNombre != 0) return compNombre;
-            return c1.getApellido().compareToIgnoreCase(c2.getApellido());
-        });
+        contactos.sort(Comparator
+                .comparing(Contacto::getNombre, String.CASE_INSENSITIVE_ORDER)
+                .thenComparing(Contacto::getApellido, String.CASE_INSENSITIVE_ORDER)
+        );
 
         for (Contacto c : contactos) {
-            lista.add(c.getNombre() + " " + c.getApellido() + " - " + c.getTelefono());
+            lista.add(c.toString()); // Usa el toString de Contacto
         }
+
         return lista;
     }
 
-
+    // Buscar contacto por nombre y apellido
     public Contacto buscaContacto(String nombre, String apellido) {
         for (Contacto c : contactos) {
             if (c.getNombre().equalsIgnoreCase(nombre) &&
@@ -85,29 +78,20 @@ public class Agenda {
         return null;
     }
 
-
+    // Eliminar contacto
     public boolean eliminarContacto(Contacto c) {
-        return contactos.remove(c);
+        return contactos.remove(c); // usa equals
     }
 
-
+    // Modificar teléfono
     public boolean modificarTelefono(String nombre, String apellido, String nuevoTelefono) {
         for (Contacto c : contactos) {
             if (c.getNombre().equalsIgnoreCase(nombre) &&
                     c.getApellido().equalsIgnoreCase(apellido)) {
-//                c.setTelefono(nuevoTelefono);
+                c.setTelefono(nuevoTelefono);
                 return true;
             }
         }
         return false;
     }
-
-
-
-
-
-
-
-
-
 }
