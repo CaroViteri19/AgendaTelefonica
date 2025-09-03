@@ -1,15 +1,37 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import logica.Agenda;
+import logica.Contacto;
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Creamos una agenda con máximo 3 contactos
+        Agenda agenda = new Agenda(3);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        // Creamos contactos de prueba (mock)
+        Contacto c1 = new Contacto("Miguel", "Ángel", "123456789");
+        Contacto c2 = new Contacto("Lina", "Gómez", "987654321");
+        Contacto c3 = new Contacto("Carlos", "Rojas", "111222333");
+        Contacto c4 = new Contacto("Miguel", "Ángel", "555555555"); // Duplicado (mismo nombre+apellido)
+
+        // Añadimos contactos
+        agenda.añadirContacto(c1);
+        agenda.añadirContacto(c2);
+        agenda.añadirContacto(c3);
+        agenda.añadirContacto(c4); // No debería añadirse por duplicado
+
+        // Listamos contactos
+        System.out.println("Lista de contactos:");
+        agenda.listarContactos();
+
+        // Buscar contacto
+        agenda.buscaContacto("Lina", "Gómez");
+
+        // Eliminar contacto
+        agenda.eliminarContacto(c2);
+
+        // Ver espacios libres
+        System.out.println("Espacios libres: " + agenda.espaciosLibres());
+
+        // Agenda llena?
+        System.out.println("¿Agenda llena?: " + agenda.agendaLlena());
     }
 }
+
