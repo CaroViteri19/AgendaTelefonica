@@ -61,7 +61,7 @@ public class Agenda {
         );
 
         for (Contacto c : contactos) {
-            lista.add(c.toString()); // Usa el toString de Contacto
+            lista.add(c.toString());
         }
 
         return lista;
